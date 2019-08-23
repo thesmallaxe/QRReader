@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>QR Gen</title>
+</head>
+
+<body>
+  <h3>Content to print in QR</h3>
+
+  <input type="file" id="csv" />
+
+  <div>
+    <table id="table">
+      <tr id="template-row" style="display: none;">
+        <td class="table-row-id">ID</td>
+        <td class="table-row-name">Name</td>
+        <td class="table-row-btn"><button class="btn-generate"> Generate </button></td>
+        <td class="table-row-qr" id="table-row-qr-x"></td>
+        <td class="table-row-btn" id="table-row-save-x"><button class="btn-save"> Save </button></td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="display: none;">
+    <canvas width="200px" height="200px" id="canvas"></canvas>
+  </div>
+</body>
+
+<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+<script type="text/javascript" src="https://unpkg.com/file-saver@latest"></script>
+<script src="./src/js/lib/html2canvas.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
+<script src="./src/js/script.js"></script>
+
+</html>
