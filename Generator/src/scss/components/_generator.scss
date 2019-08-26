@@ -1,0 +1,80 @@
+/********************
+      generator
+********************/
+.choose-file {
+  margin-top: 50px;
+  text-align: center;
+
+  h3 {
+    font-size: 26px;
+  }
+
+  input {
+    background-color: #007bff;
+  }
+
+  .custom-file {
+    position: relative;
+
+    .custom-file-control {
+      background-color: #fff;
+      border: 1px solid rgba(0, 0, 0, .15);
+      border-radius: 4px;
+      left: 0;
+      line-height: 1.5;
+      padding: 8px 16px;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      &:before {
+        background-color: #007bff;
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 0 .4px .4px 0;
+        content: "Browse";
+        padding: 8px 16px;
+        position: absolute;
+        right: -40px;
+        top: -1px;
+      }
+
+      &:after {
+        content: "Choose file...";
+      }
+    }
+  }
+}
+
+.data-table {
+  margin-top: 50px;
+
+  table {
+    width: 100%;
+
+    tr {
+      &:nth-child(even) {
+        background-color: rgba(0, 0, 0, .05);
+      }
+
+      td {
+        &:first-child {
+          background-color: #8099b566;
+          text-align: center;
+        }
+
+        border-top: 1px solid #dee2e6;
+        padding: 10px;
+
+        button {
+          background-color: #007bff;
+          border: 1px solid #007bff;
+          border-radius: 4px;
+          color: #fff;
+          font-size: 16px;
+          line-height: 1.5;
+          padding: 5px 25px;
+        }
+      }
+    }
+  }
+}
