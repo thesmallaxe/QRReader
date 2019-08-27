@@ -1,0 +1,178 @@
+/*******************
+     TYPOGRAPHY
+********************/
+
+/* Font Weights */
+$font-bold: 700;
+
+/* Font Families */
+$corbel: 'Corbel', Helvetica Neue, Helvetica, Arial, sans-serif;
+$corbel-italic: 'Corbel-Italic', Helvetica Neue, Helvetica, Arial, sans-serif;
+$corbel-bold: 'Corbel-Bold', Helvetica Neue, Helvetica, Arial, sans-serif;
+$corbel-bold-italic: 'Corbel-Bold-Italic', Helvetica Neue, Helvetica, Arial, sans-serif;
+$tiempos-light: 'Tiempos-Light', 'Georgia', Times, Times New Roman, serif;
+$tiempos: 'Tiempos', 'Georgia', Times, Times New Roman, serif;
+$tiempos-medium: 'Tiempos-Medium', 'Georgia', Times, Times New Roman, serif;
+
+$montserrat-black: 'Montserrat-Black', Helvetica Neue, Helvetica, Arial, sans-serif;
+$montserrat-medium: 'Montserrat-Medium', Helvetica Neue, Helvetica, Arial, sans-serif;
+$montserrat-semiBold: 'Montserrat-SemiBold', Helvetica Neue, Helvetica, Arial, sans-serif;
+
+/* Headlines */
+%h1 {
+  font-family: $tiempos-medium;
+  font-size: 40px;
+  line-height: 52px;
+
+  @include grid-media($sm) {
+    line-height: 64px;
+  }
+}
+
+%h2 {
+  font-family: $tiempos-medium;
+  font-size: 30px;
+  line-height: 36px;
+
+  @include grid-media($sm) {
+    font-size: 36px;
+    line-height: 44px;
+  }
+}
+
+%h3 {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+%h4 {
+  font-family: $corbel-bold;
+  font-size: 20px;
+  letter-spacing: -.18px;
+  line-height: 26px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+  @include grid-media($sm) {
+    font-size: 22px;
+    letter-spacing: -.2px;
+    line-height: 26px;
+  }
+}
+
+%h5 {
+  font-family: $tiempos-medium;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+/* Mixins for Heading */
+@mixin h1($color: $black) {
+  color: #{$color};
+
+  @extend %h1;
+}
+
+@mixin h2($color: $black) {
+  color: #{$color};
+
+  @extend %h2;
+}
+
+@mixin h3($color: $black) {
+  color: #{$color};
+
+  @extend %h3;
+}
+
+@mixin h4($color: $black) {
+  color: #{$color};
+
+  @extend %h4;
+}
+
+@mixin h5($color: $light-gray) {
+  color: #{$color};
+
+  @extend %h5;
+}
+
+/* Heading 1 */
+h1 {
+  @include h1;
+}
+
+/* Heading 3 */
+h3 {
+  @include h3;
+}
+
+/* Heading 4 */
+h4 {
+  @include h4;
+}
+
+/* Heading 5 */
+h5 {
+  @include h5;
+}
+
+/* Heading Margins */
+h2 {
+  color: $box-heading;
+  font-size: 30px;
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+/******************
+     BODY TEXT
+*******************/
+%text-default {
+  color: $black;
+  font-family: $corbel;
+
+  @include font(19, 26);
+}
+
+%text-default-bold {
+  @extend %text-default;
+
+  font-family: $corbel-bold;
+}
+
+/* Classes for Body Text */
+.body--default {
+  @extend %text-default;
+}
+
+.body--default-bold {
+  @extend %text-default-bold;
+}
+
+body,
+p,
+ul,
+ol {
+  @extend %text-default;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+.text-bold {
+  @extend %text-default-bold;
+}
+
+strong {
+  font-weight: $font-bold;
+}
+
+p {
+  &:not(:last-child) {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+}

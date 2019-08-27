@@ -1,0 +1,142 @@
+/* FONTS */
+
+/* Corbel Font */
+@font-face {
+  font-family: "Corbel";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/corbel/388CCE_1_0.eot"),
+    url("assets/fonts/corbel/388CCE_1_0.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/corbel/388CCE_1_0.woff2") format("woff2"),
+    url("assets/fonts/corbel/388CCE_1_0.woff") format("woff"),
+    url("assets/fonts/corbel/388CCE_1_0.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Corbel-Bold";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/corbel/388CCE_2_0.eot"),
+    url("assets/fonts/corbel/388CCE_2_0.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/corbel/388CCE_2_0.woff2") format("woff2"),
+    url("assets/fonts/corbel/388CCE_2_0.woff") format("woff"),
+    url("assets/fonts/corbel/388CCE_2_0.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Corbel-Bold-Italic";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/corbel/388CCE_0_0.eot"),
+    url("assets/fonts/corbel/388CCE_0_0.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/corbel/388CCE_0_0.woff2") format("woff2"),
+    url("assets/fonts/corbel/388CCE_0_0.woff") format("woff"),
+    url("assets/fonts/corbel/388CCE_0_0.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Corbel-Italic";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/corbel/388CCE_3_0.eot"),
+    url("assets/fonts/corbel/388CCE_3_0.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/corbel/388CCE_3_0.woff2") format("woff2"),
+    url("assets/fonts/corbel/388CCE_3_0.woff") format("woff"),
+    url("assets/fonts/corbel/388CCE_3_0.ttf") format("truetype");
+}
+
+/* OptimalLTStd Font */
+@font-face {
+  font-family: "OptimaLTStd";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/optima/388CCE_4_0.eot"),
+    url("assets/fonts/optima/388CCE_4_0.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/optima/388CCE_4_0.woff2") format("woff2"),
+    url("assets/fonts/optima/388CCE_4_0.woff") format("woff"),
+    url("assets/fonts/optima/388CCE_4_0.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "OptimaLTStd-Italic";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/optima/388CCE_5_0.eot"),
+    url("assets/fonts/optima/388CCE_5_0.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/optima/388CCE_5_0.woff2") format("woff2"),
+    url("assets/fonts/optima/388CCE_5_0.woff") format("woff"),
+    url("assets/fonts/optima/388CCE_5_0.ttf") format("truetype");
+}
+
+/* Tiempos Font */
+@font-face {
+  font-family: "Tiempos-Light";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Light.eot"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Light.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Light.woff2") format("woff2"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Tiempos";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Regular.eot"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Regular.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Regular.woff2") format("woff2"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Tiempos-Medium";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Medium.eot"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Medium.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Medium.woff2") format("woff2"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Tiempos-Semi-Bold";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Semibold.eot"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Semibold.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Semibold.woff2") format("woff2"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Semibold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Tiempos-Bold";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Bold.eot"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Bold.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Bold.woff2") format("woff2"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Tiempos-Black";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Black.eot"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Black.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Black.woff2") format("woff2"),
+    url("assets/fonts/tiempos/TiemposHeadlineWeb-Black.woff") format("woff");
+}

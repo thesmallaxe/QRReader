@@ -1,0 +1,67 @@
+// LAYOUT
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+body {
+  color: $gray;
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a,
+button,
+input {
+  outline: none;
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+}
+
+.row {
+  @include grid-collapse;
+}
+
+.container {
+  position: relative;
+  @include grid-container;
+  max-width: $content-width;
+  margin: 0 auto;
+}
+
+section {
+  @include margin(null null 80px);
+  @include grid-container;
+
+  position: relative;
+  width: 100%;
+
+  @include grid-media($media-sm) {
+    @include margin(null null 96px);
+  }
+
+  @include grid-media($media-md) {
+    @include margin(null null 120px);
+  }
+
+  &.section--style-1 {
+    @include margin(null null 70px);
+  }
+}
+
+.section--dark-blue {
+  background: $dark-blue;
+}
+
+.section--off-white {
+  background: $off-white;
+}
