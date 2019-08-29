@@ -94,7 +94,7 @@ export default function () {
 
               // Sending data to Firebase Database
               function writeUserData() {
-                firebase.database().ref("attendees/").push({
+                firebase.database().ref("attendees/" + invites[i].id).set({
                   ID: invites[i].id,
                   Name: invites[i].name,
                   Title: invites[i].title,
