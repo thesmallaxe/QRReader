@@ -1,7 +1,21 @@
 window.addEventListener("load", () => {
+
+  //! Firebase Initialisation
+  var firebaseConfig = {
+    apiKey: "AIzaSyBSES8151aT4TvUkaaQUc8z6Jt_rKlHss8",
+    authDomain: "qr-reader-e5dbe.firebaseapp.com",
+    databaseURL: "https://qr-reader-e5dbe.firebaseio.com",
+    projectId: "qr-reader-e5dbe",
+    storageBucket: "qr-reader-e5dbe.appspot.com",
+    messagingSenderId: "501459211305",
+    appId: "1:501459211305:web:757b993c57fe8f2b"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  var database = firebase.database();
+
   let selectedDeviceId;
   const codeReader = new ZXing.BrowserMultiFormatReader();
-  console.log("ZXing code reader initialized");
   codeReader
     .getVideoInputDevices()
     .then(videoInputDevices => {
@@ -24,36 +38,41 @@ window.addEventListener("load", () => {
         sourceSelectPanel.style.display = "block";
       }
 
-      document.getElementById("b_start").addEventListener("click", () => {
-        codeReader.decodeFromVideoDevice(
-          selectedDeviceId,
-          "video",
-          (result, err) => {
-            if (result) {
-              console.log(result);
-              document.getElementById("result").textContent = result.text;
-            }
+      codeReader.decodeFromVideoDevice(
+        selectedDeviceId,
+        "video",
+        (result, err) => {
+          if (result) {
+            document.getElementById("result").textContent = result.text;
+            let content = JSON.parse(result.text)
+            let attendeeID = content.id;
+            console.log(attendeeID);
 
-            if (err && !(err instanceof ZXing.NotFoundException)) {
-              console.error(err);
-              document.getElementById("result").textContent = err;
-            }
+            document.getElementById("name").textContent = content.name
+            document.getElementById("title").textContent = content.title
+            document.getElementById("company").textContent = content.company
+
+            var updates = {};
+            updates["attendees/" + attendeeID + "/" + "Attended"] = "Yes"
+
+            return firebase.database().ref().update(updates);
           }
-        );
 
-        console.log(
-          `Started continous decode from camera with id ${selectedDeviceId}`
-        );
-      });
+          if (err && !(err instanceof ZXing.NotFoundException)) {
+            console.error(err);
+            document.getElementById("result").textContent = err;
+          }
+        }
+      );
 
-      document.getElementById("b_stop").addEventListener("click", () => {
-        codeReader.reset();
-        document.getElementById("result").textContent = "";
-        console.log("Stream Stopped");
-      });
-    })
-
-    .catch(err => {
-      console.error(err);
+      console.log(
+        `Started continous decode from camera with id ${selectedDeviceId}`
+      );
     });
-});
+
+  document.getElementById("b_stop").addEventListener("click", () => {
+    codeReader.reset();
+    document.getElementById("result").textContent = "";
+    console.log("Stream Stopped");
+  });
+})

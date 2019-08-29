@@ -1,0 +1,7 @@
+/********************
+     Transitions
+*********************/
+
+a {
+  @include trans(all .5s $cubic-transition-2);
+}
