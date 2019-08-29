@@ -1,0 +1,149 @@
+/********************
+      HERO
+********************/
+
+header {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.user-wrapper {
+  height: calc(100vh - 120px);
+  position: relative;
+  width: 100%;
+
+  &:before {
+    background: url("../../assets/images/2.png") center center no-repeat;
+    background-size: cover;
+    content: '';
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .container {
+    @include padding(20px);
+
+    background: linear-gradient(to right, $gold, $dark-gold);
+
+    &:before {
+      @include margin(5px);
+
+      background: $white;
+      content: '';
+      height: calc(100% - 10px);
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: calc(100% - 10px);
+    }
+
+    .user__img {
+      @include margin(10px auto null);
+
+      height: 40vh;
+      position: relative;
+      text-align: center;
+      width: 40vh;
+
+      &:after {
+        background: #f9df7b;
+        background: linear-gradient(to right, #f9df7b 0%, #b57e10 26%, #f9df7b 83%, #b57e10 99%);
+        border-radius: 50%;
+        bottom: -5px;
+        content: '';
+        filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f9df7b', endColorstr='#b57e10', GradientType=1);
+        left: -5px;
+        position: absolute;
+        right: -5px;
+        top: -5px;
+        z-index: 0;
+      }
+
+      &-image {
+        background: url("../../assets/images/user.png") $white center center no-repeat;
+        background-size: contain;
+        border-radius: 50%;
+        height: 100%;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+      }
+    }
+
+    .user__detail {
+      color: $brown;
+      margin-top: 20px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .user__detail,
+    .user__img {
+      position: relative;
+    }
+  }
+
+  .container_a {
+    color: $brown;
+    text-align: center;
+
+    .detail_a {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      vertical-align: middle;
+    }
+  }
+}
+
+.hero_2 {
+  background: url("../../src/images/citrus_bg_1.jpg") center center no-repeat;
+  background-size: cover;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+
+  .container {
+    margin-top: 175px;
+
+    .img_bg {
+      border: 1px solid $black;
+      border-radius: 50%;
+      height: 338px;
+      margin: 0 auto;
+      text-align: center;
+      width: 338px;
+
+      img {
+        margin-top: 9px;
+      }
+    }
+
+    .detail {
+      color: $white;
+      margin-top: 58px;
+      text-align: center;
+    }
+  }
+
+  .container_a {
+    color: $white;
+    text-align: center;
+
+    .detail_a {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      vertical-align: middle;
+    }
+  }
+}
+
+.user__detail-company {
+  font-family: $montserrat;
+  font-weight: $font-semibold;
+}
