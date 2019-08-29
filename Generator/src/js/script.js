@@ -33,24 +33,17 @@ let fileInput = document.getElementById("csv"),
           company: split[3]
         });
       });
-      console.log(invites);
+      // console.log(invites);
       // console.log(JSON.stringify(invites[0]));
 
-      function fillCanvasBackgroundWithColor(canvas, color) { //! CHANGES COLOR
-        // Get the 2D drawing context from the provided canvas.
+      function fillCanvasBackgroundWithColor(canvas, color) {
         const context = canvas.getContext('2d');
 
-        // We're going to modify the context state, so it's
-        // good practice to save the current state first.
         context.save();
         context.globalCompositeOperation = 'destination-over';
 
-        // Fill in the background. We do this by drawing a rectangle
-        // filling the entire canvas, using the provided color.
         context.fillStyle = color;
         context.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Restore the original context state from `context.save()`
         context.restore();
       }
 
@@ -105,20 +98,34 @@ let fileInput = document.getElementById("csv"),
 
             writeUserData();
 
+            function download(filename) {
+              var canvas = document.getElementById("canvas");
+              fillCanvasBackgroundWithColor(canvas, '#fff');
+              var img = canvas.toDataURL("image/png");
+              var element = document.createElement('a');
+              element.setAttribute('href', img);
+              element.setAttribute('download', filename);
+
+              element.style.display = 'none';
+              document.body.appendChild(element);
+
+              element.click();
+
+              document.body.removeChild(element);
+            }
+
             $(row)
               .children(".table-row-btn")
               .children(".btn-save")
               .click(function () {
-                console.log($("#table-row-qr-" + i).html());
+                // console.log($("#table-row-qr-" + i).html());
                 canvg(
                   document.getElementById("canvas"),
                   $("#table-row-qr-" + i).html()
                 );
 
-                var canvas = document.getElementById("canvas");
-                fillCanvasBackgroundWithColor(canvas, '#fff'); //! IMPORTANT - changes color
-                var img = canvas.toDataURL("image/png");
-                document.write('<img src="' + img + '"/>');
+                // document.write('<img src="' + img + '"/>');
+                download(invites[i].name + ".png");
               });
           });
       }

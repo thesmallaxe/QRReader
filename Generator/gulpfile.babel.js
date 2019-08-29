@@ -15,7 +15,6 @@ import browserify from 'browserify';
 import del from 'del';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import styleguide from 'sc5-styleguide';
 import sourcestream from 'vinyl-source-stream';
 import iconfont from 'gulp-iconfont';
 
@@ -123,9 +122,6 @@ gulp.task('images', function () {
 
 // BUILD TASKS
 // ------------
-
-// Build styleguide
-gulp.task('styleguide', ['styleguide:generate', 'styleguide:applystyles', 'styleguideImg', 'styleguide:styleguideFonts']);
 
 // Watch
 gulp.task('default', function () {
