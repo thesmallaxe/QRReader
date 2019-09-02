@@ -4,53 +4,163 @@
 'use strict';
 
 var _jquery=typeof window!=="undefined"?window['jQuery']:typeof global!=="undefined"?global['jQuery']:null;var _jquery2=_interopRequireDefault(_jquery);
-var _accordion=require('modules/accordion.js');var _accordion2=_interopRequireDefault(_accordion);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
+var _qrGenerator=require('modules/qrGenerator.js');var _qrGenerator2=_interopRequireDefault(_qrGenerator);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
 
 (function($){
 $(document).ready(function(){
 ready();
-
-// Styleguide event when an element is rendered
-$(window).bind("styleguide:onRendered",function(e){
-ready();
-});
 });
 
 // Initalizing all modules
 function ready(){
-(0,_accordion2.default)();
+(0,_qrGenerator2.default)();
 }
 })(_jquery2.default);
 
 }).call(this,typeof global!=="undefined"?global:typeof self!=="undefined"?self:typeof window!=="undefined"?window:{});
 
-},{"modules/accordion.js":2}],2:[function(require,module,exports){
-'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+},{"modules/qrGenerator.js":2}],2:[function(require,module,exports){
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
 function(){
-var accordion=$('.accordion');
+//! Firebase Initialisation
+var firebaseConfig={
+apiKey:"AIzaSyBSES8151aT4TvUkaaQUc8z6Jt_rKlHss8",
+authDomain:"qr-reader-e5dbe.firebaseapp.com",
+databaseURL:"https://qr-reader-e5dbe.firebaseio.com",
+projectId:"qr-reader-e5dbe",
+storageBucket:"qr-reader-e5dbe.appspot.com",
+messagingSenderId:"501459211305",
+appId:"1:501459211305:web:757b993c57fe8f2b"};
 
-if(accordion.length){
-$('.toggle').click(function(e){
-e.preventDefault();
 
-var $this=$(this);
+firebase.initializeApp(firebaseConfig);
+var database=firebase.database();
 
-if($this.next().hasClass('active')&&$(this).hasClass('active')){
-$('.toggle').removeClass('active');
-$this.next().removeClass('active');
-$this.next().slideUp(350);
-}else{
-// $('.toggle').removeClass('active');
-$this.parent().parent().find('.accordion__content').removeClass('active');
-// $this.parent().parent().find('.accordion__content').slideUp(350);
-$this.toggleClass('active');
-$this.next().toggleClass('active');
-$this.next().slideToggle(350);
+//!Importing the file
+var invites=[];
+
+var codeWriter=new ZXing.BrowserQRCodeSvgWriter();
+var svgElement=void 0;
+
+var fileInput=document.getElementById("csv"),
+readFile=function readFile(){
+var reader=new FileReader();
+reader.onload=function(){
+var table_details=reader.result;
+var table_details_new=table_details.split("\r\n");
+table_details_new.forEach(function(row){
+var split=row.split(",");
+invites.push({
+id:split[0],
+name:split[1],
+title:split[2],
+company:split[3],
+image:split[4]});
+
+});
+loadTable(invites);
+};
+reader.readAsBinaryString(fileInput.files[0]);
+};
+fileInput.addEventListener("change",readFile);
+
+$('.btn-generate-all').click(function(){
+var i=0;
+for(i=0;i<invites.length;i++){
+var invite=invites[i];
+var id="#table-row-qr-"+i;
+svgElement=codeWriter.writeToDom(
+id,
+JSON.stringify(invite),
+200,
+200);
+
+writeUserData(invite);
 }
 });
+
+function loadTable(invites){
+var i=0;
+for(i=0;i<invites.length;i++){
+var row=$("#template-row").clone().appendTo("#table");
+$(row).attr("style","");
+$(row).children(".table-row-id").html(invites[i].id);
+$(row).children(".table-row-name").html(invites[i].name);
+$(row).children(".table-row-title").html(invites[i].title);
+$(row).children(".table-row-company").html(invites[i].company);
+$(row).children(".table-row-image").html(invites[i].image);
+
+$(row).children(".table-row-btn").children(".btn-generate").removeClass('btn-generate-all').html('Generate').attr("data-index",i);
+$(row).children(".table-row-qr").attr("id","table-row-qr-"+i);
+$(row).children(".table-row-btn").children(".btn-save").removeClass('btn-save-all').html('Save').attr("data-index",i);
+
+$(row).children(".table-row-btn").children(".btn-generate").click(function(){
+var elementID=$(this).attr("data-index");
+var invite=invites[elementID];
+var id="#table-row-qr-"+elementID;
+svgElement=codeWriter.writeToDom(
+id,
+JSON.stringify(invite),
+200,
+200);
+
+// Calling Firebase Write
+writeUserData(invite);
+});
+
+// Save button
+$(row).children(".table-row-btn").children(".btn-save").click(function(){
+var elementID=$(this).attr("data-index");
+canvg(document.getElementById("canvas"),$("#table-row-qr-"+elementID).html());
+// DON'T DELETE THE COMMENTED CODE BELOW
+// document.write('<img src="' + img + '"/>');
+download(invites[elementID].name+".png");
+});
+}
+}
+
+// Sending data to Firebase Database
+function writeUserData(invite){
+console.log(invite);
+firebase.database().ref("attendees/"+invite.id).set({
+ID:invite.id,
+Name:invite.name,
+Title:invite.title,
+Company:invite.company,
+Image:invite.image,
+Attended:"No"});
+
+}
+
+function download(filename){
+// Defining the canvas
+var canvas=document.getElementById("canvas");
+fillCanvasBackgroundWithColor(canvas,'#fff');
+var img=canvas.toDataURL("image/png");
+
+// Download function as an image
+var element=document.createElement('a');
+element.setAttribute('href',img);
+element.setAttribute('download',filename);
+element.style.display='none';
+document.body.appendChild(element);
+element.click();
+document.body.removeChild(element);
+}
+
+// Filling background colour of Canvas
+function fillCanvasBackgroundWithColor(canvas,color){
+var context=canvas.getContext('2d');
+
+context.save();
+context.globalCompositeOperation='destination-over';
+
+context.fillStyle=color;
+context.fillRect(0,0,canvas.width,canvas.height);
+context.restore();
 }
 };
 
