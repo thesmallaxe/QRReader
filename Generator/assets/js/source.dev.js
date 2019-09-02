@@ -82,6 +82,16 @@ writeUserData(invite);
 }
 });
 
+$('.btn-save-all').click(function(){
+var i=0;
+for(i=0;i<invites.length;i++){
+canvg(document.getElementById("canvas"),$("#table-row-qr-"+i).html());
+// DON'T DELETE THE COMMENTED CODE BELOW
+// document.write('<img src="' + img + '"/>');
+download(invites[i].name+".png");
+}
+});
+
 function loadTable(invites){
 var i=0;
 for(i=0;i<invites.length;i++){
