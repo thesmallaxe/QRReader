@@ -35,7 +35,8 @@ export default function () {
             id: split[0],
             name: split[1],
             title: split[2],
-            company: split[3]
+            company: split[3],
+            image: split[4]
           });
         });
 
@@ -71,6 +72,9 @@ export default function () {
             .children(".table-row-company")
             .html(invites[i].company);
           $(row)
+            .children(".table-row-image")
+            .html(invites[i].image);
+          $(row)
             .children(".table-row-btn")
             .children(".btn-generate")
             .attr("data-index", i);
@@ -99,6 +103,7 @@ export default function () {
                   Name: invites[i].name,
                   Title: invites[i].title,
                   Company: invites[i].company,
+                  Image: invites[i].image,
                   Attended: "No"
                 });
               }

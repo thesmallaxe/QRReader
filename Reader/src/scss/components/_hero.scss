@@ -62,8 +62,8 @@ header {
       }
 
       &-image {
-        background: url("../../assets/images/user.png") $white center center no-repeat;
-        background-size: contain;
+        // background: url("../../assets/images/user.png") $white center center no-repeat;
+        background-size: cover !important;
         border-radius: 50%;
         height: 100%;
         position: relative;

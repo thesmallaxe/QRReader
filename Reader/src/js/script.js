@@ -48,9 +48,17 @@ window.addEventListener("load", () => {
             let attendeeID = content.id;
             console.log(attendeeID);
 
-            document.getElementById("name").textContent = content.name
-            document.getElementById("title").textContent = content.title
-            document.getElementById("company").textContent = content.company
+            document.getElementById("name").textContent = content.name;
+            document.getElementById("title").textContent = content.title;
+            document.getElementById("company").textContent = content.company;
+            // document.getElementsByClassName("user__img-image")[0].style.background = content.image;
+
+            if (!content.image) {
+              document.getElementById("user-image-base").style.display = 'none';
+            } else {
+              document.getElementById("user-image-base").style.display = 'block';
+              document.getElementById("user-image").style.backgroundImage = 'url(' + content.image + ')';
+            }
 
             var updates = {};
             updates["attendees/" + attendeeID + "/" + "Attended"] = "Yes"
