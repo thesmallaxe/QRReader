@@ -14,6 +14,9 @@ window.addEventListener("load", () => {
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
 
+  var attendeeCount = 0;
+  var attendedCount = 0;
+
   let selectedDeviceId;
   const codeReader = new ZXing.BrowserMultiFormatReader();
   codeReader
@@ -36,6 +39,21 @@ window.addEventListener("load", () => {
 
         const sourceSelectPanel = document.getElementById("sourceSelectPanel");
         sourceSelectPanel.style.display = "block";
+      }
+
+      database.ref().on("child_added", function (snapshot) {
+        attendeeCount = snapshot.numChildren();
+        updateCounts();
+      });
+
+      database.ref("attendees").orderByChild("Attended").equalTo("Yes").on("child_added", function (snapshot) {
+        attendedCount++;
+        updateCounts();
+      });
+
+      function updateCounts() {
+        $("#attendees-attending").html(attendeeCount);
+        $("#attendees-attended").html(attendedCount);
       }
 
       codeReader.decodeFromVideoDevice(
@@ -77,10 +95,4 @@ window.addEventListener("load", () => {
         `Started continous decode from camera with id ${selectedDeviceId}`
       );
     });
-
-  document.getElementById("b_stop").addEventListener("click", () => {
-    codeReader.reset();
-    document.getElementById("result").textContent = "";
-    console.log("Stream Stopped");
-  });
 })
