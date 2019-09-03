@@ -92,16 +92,16 @@ JSON.stringify(visitorID,name,contact,nic,email,vehicleNo),
 
 // File download function
 function save_as_svg(){
-var svg_data=$("#result svg").html();//put id of your svg element here
+// var svg_data = $("#result svg").html(); //put id of your svg element here
 
-var head='<svg title="graph" version="1.1" xmlns="http://www.w3.org/2000/svg">';
+// var head = '<svg title="graph" version="1.1" xmlns="http://www.w3.org/2000/svg">';
 
-//if you have some additional styling like graph edges put them inside <style> tag
-// var style = '<style>circle {cursor: pointer;stroke-width: 1.5px;}text {font: 10px arial;}path {stroke: DimGrey;stroke-width: 1.5px;}</style>'
+// //if you have some additional styling like graph edges put them inside <style> tag
+// // var style = '<style>circle {cursor: pointer;stroke-width: 1.5px;}text {font: 10px arial;}path {stroke: DimGrey;stroke-width: 1.5px;}</style>'
 
-var full_svg=head+svg_data+"</svg>";
-var blob=new Blob([full_svg],{type:"image/svg+xml"});
-saveAs(blob,"graph.svg");
+// var full_svg = head + svg_data + "</svg>";
+// var blob = new Blob([full_svg], { type: "image/svg+xml" });
+// saveAs(blob, "graph.svg");
 };
 
 // Form validation
@@ -124,12 +124,29 @@ $('#submitBtn').attr("disabled",true);
 
 if(!isFormValid){
 alert("Please fill in all the required fields (indicated by *)");
-}else{
-// Call write QR function
-writeQR();
+}
+return isFormValid;
 }
 
-return isFormValid;
+function downloadQR(){
+canvg(document.getElementById("canvas"),$("#result").html());
+download("test.png");
+}
+
+function download(filename){
+// Defining the canvas
+var canvas=document.getElementById("canvas");
+fillCanvasBackgroundWithColor(canvas,'#fff');
+var img=canvas.toDataURL("image/png");
+
+// Download function as an image
+var element=document.createElement('a');
+element.setAttribute('href',img);
+element.setAttribute('download',filename);
+element.style.display='none';
+document.body.appendChild(element);
+element.click();
+document.body.removeChild(element);
 }
 
 // Defining form button element
@@ -139,10 +156,13 @@ submitBtn.click(function(e){
 e.preventDefault();
 
 // Call validate function
-validate();
+if(validate()){
+writeQR();
+downloadQR();
+}
 
 // Call download function
-save_as_svg();
+// save_as_svg();
 });
 };
 
