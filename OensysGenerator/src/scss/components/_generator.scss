@@ -1,0 +1,36 @@
+/********************
+      generator
+********************/
+.data-table {
+  margin-top: 50px;
+
+  table {
+    width: 100%;
+
+    tr {
+      &:nth-child(even) {
+        background-color: rgba(0, 0, 0, .05);
+      }
+
+      td {
+        &:first-child {
+          background-color: #8099b566;
+          text-align: center;
+        }
+
+        border-top: 1px solid #dee2e6;
+        padding: 10px;
+
+        button {
+          background-color: #007bff;
+          border: 1px solid #007bff;
+          border-radius: 4px;
+          color: #fff;
+          font-size: 16px;
+          line-height: 1.5;
+          padding: 5px 25px;
+        }
+      }
+    }
+  }
+}

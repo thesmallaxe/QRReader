@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>QR Gen</title>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" name="viewport">
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+  <section>
+    <div class="container">
+      <div class="choose-file">
+        <h3>Content to print in QR</h3>
+
+        <div class="data-form">
+          <form action="" id="visitor-form" class="data-form__form">
+            <div class="form-item">
+              <label for="name">Name*</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-item">
+              <label for="contact">Contact*</label>
+              <input type="text" id="contact" name="contact" required>
+            </div>
+            <div class="form-item">
+              <label for="nic">NIC*</label>
+              <input type="text" id="nic" name="nic" required>
+            </div>
+            <div class="form-item">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email">
+            </div>
+            <div class="form-item">
+              <label for="vehicle-no">Vehicle No:</label>
+              <input type="text" id="vehicle-no" name="vehicle-no">
+            </div>
+            <button type="submit" id="submitBtn">
+              Submit
+            </button>
+          </form>
+        </div>
+
+        <div id="result"></div>
+      </div>
+    </div>
+
+    <!-- <div class="container">
+      <div class="data-table">
+        <table id="table">
+          <tr id="template-row" style="display: none;">
+            <td class="table-row-id">ID</td>
+            <td class="table-row-name">Name</td>
+            <td class="table-row-title">Title</td>
+            <td class="table-row-company">Company</td>
+            <td class="table-row-image">URL</td>
+            <td class="table-row-btn"><button class="btn-generate"> Generate </button></td>
+            <td class="table-row-qr" id="table-row-qr-x"></td>
+            <td class="table-row-btn" id="table-row-save-x"><button class="btn-save"> Save </button></td>
+          </tr>
+        </table>
+      </div>
+    </div> -->
+
+    <div class="container">
+      <div style="display: none;">
+        <canvas width="200px" height="200px" id="canvas" style="background: #fff;"></canvas>
+      </div>
+    </div>
+  </section>
+
+</body>
+
+<script src="./src/js/lib/jquery.min.js"></script>
+<script src="./src/js/vendor/base64.js"></script>
+<script src="./src/js/lib/firebase-app.js"></script>
+<script src="./src/js/lib/firebase-database.js"></script>
+<script src="./src/js/lib/zxing.min.js"></script>
+<script src="./src/js/lib/FileSaver.min.js"></script>
+<script src="./src/js/lib/html2canvas.js"></script>
+<script src="./src/js/lib/canvg.min.js"></script>
+<script src="./assets/js/source.dev.js"></script>
+
+</html>
