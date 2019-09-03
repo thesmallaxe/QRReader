@@ -18,7 +18,37 @@
 
     <main id="content-main">
         <div class="user-wrapper">
-            <div class="container">
+            <div class=" container">
+                <div class="QR-video">
+                    <div class="video_container">
+                        <video id="video"></video>
+                    </div>
+
+                    <div id="sourceSelectPanel">
+                        <label for="sourceSelect" style="display: none;"> Change Video Source: </label>
+                        <select id="sourceSelect" style="display: none;"></select>
+                    </div>
+                </div>
+                <div class="attendees__details">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="attendees__details-attending">
+                                    Attendees :
+                                </div>
+                            </td>
+                            <td>&nbsp;<span id="attendees-attending"></span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="attendees__details-attended">
+                                    Attended :
+                                </div>
+                            </td>
+                            <td>&nbsp;<span id="attendees-attended"></span></td>
+                        </tr>
+                    </table>
+                </div>
                 <div id="user-image-base" class="user__img">
                     <div id="user-image" class="user__img-image"
                         style="background:url(./assets/images/user.png) #fff center center no-repeat;"></div>
@@ -28,36 +58,13 @@
                     <h2 id="title" class="user__detail-title">title</h2>
                     <h2 id="company" class="user__detail-company">company</h2>
                 </div>
+                <div id="result"></div>
             </div>
         </div>
     </main>
 
-    <section class="reader" style="display: none;">
-        <div class="container">
-            <div class="QR-video">
-                <div class="left">
-                    <h4> QR Reader using ZXing </h4>
-                    <div class="button_container">
-                        <a id="b_start" class="button"> Start </a>
-                        <a id="b_stop" class="button"> Stop </a>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="video_container">
-                        <video id="video"></video>
-                    </div>
-
-                    <div id="sourceSelectPanel">
-                        <label for="sourceSelect"> Change Video Source: </label>
-                        <select id="sourceSelect"></select>
-                    </div>
-
-                    <label> Result: </label>
-                    <pre><code id="result"></code></pre>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="container__qr">
+    </div>
 </body>
 
 <script src="./src/js/lib/jquery.min.js"></script>
