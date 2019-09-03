@@ -40,17 +40,8 @@ appId:"1:192413503859:web:c8f9e78f7000d4ea"};
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var database=firebase.database();
-
 var codeWriter=new ZXing.BrowserQRCodeSvgWriter();
 var svgElement=void 0;
-
-// Form elements
-var visitorID='v'+Math.random().toString(36).substr(2,6);
-var name=$('#name').val();
-var contact=$('#contact').val();
-var nic=$('#nic').val();
-var email=$('#email').val();
-var vehicleNo=$('#vehicle-no').val();
 
 // Sending data to Firebase Database
 function writeUserData(visitorID,name,contact,nic,email,vehicleNo){
@@ -67,20 +58,17 @@ Vehicle:vehicleNo});
 // Filling background colour of Canvas
 function fillCanvasBackgroundWithColor(canvas,color){
 var context=canvas.getContext('2d');
-
 context.save();
 context.globalCompositeOperation='destination-over';
-
 context.fillStyle=color;
 context.fillRect(0,0,canvas.width,canvas.height);
 context.restore();
 }
 
 // Function write QR
-function writeQR(){
+function generateQR(visitorID,name,contact,nic,email,vehicleNo){
 // Calling Firebase Write
 writeUserData(visitorID,name,contact,nic,email,vehicleNo);
-
 // Write QR
 svgElement=codeWriter.writeToDom(
 '#result',
@@ -89,20 +77,6 @@ JSON.stringify(visitorID,name,contact,nic,email,vehicleNo),
 250);
 
 }
-
-// File download function
-function save_as_svg(){
-// var svg_data = $("#result svg").html(); //put id of your svg element here
-
-// var head = '<svg title="graph" version="1.1" xmlns="http://www.w3.org/2000/svg">';
-
-// //if you have some additional styling like graph edges put them inside <style> tag
-// // var style = '<style>circle {cursor: pointer;stroke-width: 1.5px;}text {font: 10px arial;}path {stroke: DimGrey;stroke-width: 1.5px;}</style>'
-
-// var full_svg = head + svg_data + "</svg>";
-// var blob = new Blob([full_svg], { type: "image/svg+xml" });
-// saveAs(blob, "graph.svg");
-};
 
 // Form validation
 function validate(){
@@ -128,13 +102,9 @@ alert("Please fill in all the required fields (indicated by *)");
 return isFormValid;
 }
 
-function downloadQR(){
+function downloadQR(filename){
 canvg(document.getElementById("canvas"),$("#result").html());
-download("test.png");
-}
 
-function download(filename){
-// Defining the canvas
 var canvas=document.getElementById("canvas");
 fillCanvasBackgroundWithColor(canvas,'#fff');
 var img=canvas.toDataURL("image/png");
@@ -154,15 +124,18 @@ var submitBtn=$('#submitBtn');
 
 submitBtn.click(function(e){
 e.preventDefault();
-
+//Defining form elements
+var visitorID='v'+Math.random().toString(36).substr(2,6);
+var name=$('#name').val();
+var contact=$('#contact').val();
+var nic=$('#nic').val();
+var email=$('#email').val();
+var vehicleNo=$('#vehicle-no').val();
 // Call validate function
 if(validate()){
-writeQR();
-downloadQR();
+generateQR(visitorID,name,contact,nic,email,vehicleNo);
+downloadQR(name);
 }
-
-// Call download function
-// save_as_svg();
 });
 };
 

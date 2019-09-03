@@ -16,17 +16,8 @@ export default function () {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
-
   const codeWriter = new ZXing.BrowserQRCodeSvgWriter();
   let svgElement;
-
-  // Form elements
-  let visitorID = 'v' + Math.random().toString(36).substr(2, 6);
-  let name = $('#name').val();
-  let contact = $('#contact').val();
-  let nic = $('#nic').val();
-  let email = $('#email').val();
-  let vehicleNo = $('#vehicle-no').val();
 
   // Sending data to Firebase Database
   function writeUserData(visitorID, name, contact, nic, email, vehicleNo) {
@@ -43,20 +34,17 @@ export default function () {
   // Filling background colour of Canvas
   function fillCanvasBackgroundWithColor(canvas, color) {
     const context = canvas.getContext('2d');
-
     context.save();
     context.globalCompositeOperation = 'destination-over';
-
     context.fillStyle = color;
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.restore();
   }
 
   // Function write QR
-  function writeQR() {
+  function generateQR(visitorID, name, contact, nic, email, vehicleNo) {
     // Calling Firebase Write
     writeUserData(visitorID, name, contact, nic, email, vehicleNo);
-
     // Write QR
     svgElement = codeWriter.writeToDom(
       '#result',
@@ -65,20 +53,6 @@ export default function () {
       250
     );
   }
-
-  // File download function
-  function save_as_svg() {
-    // var svg_data = $("#result svg").html(); //put id of your svg element here
-
-    // var head = '<svg title="graph" version="1.1" xmlns="http://www.w3.org/2000/svg">';
-
-    // //if you have some additional styling like graph edges put them inside <style> tag
-    // // var style = '<style>circle {cursor: pointer;stroke-width: 1.5px;}text {font: 10px arial;}path {stroke: DimGrey;stroke-width: 1.5px;}</style>'
-
-    // var full_svg = head + svg_data + "</svg>";
-    // var blob = new Blob([full_svg], { type: "image/svg+xml" });
-    // saveAs(blob, "graph.svg");
-  };
 
   // Form validation
   function validate() {
@@ -104,13 +78,9 @@ export default function () {
     return isFormValid;
   }
 
-  function downloadQR(){
+  function downloadQR(filename){
     canvg(document.getElementById("canvas"),$("#result").html());
-    download("test.png");
-  }
-
-  function download(filename) {
-    // Defining the canvas
+    
     var canvas = document.getElementById("canvas");
     fillCanvasBackgroundWithColor(canvas, '#fff');
     var img = canvas.toDataURL("image/png");
@@ -130,14 +100,17 @@ export default function () {
 
   submitBtn.click(function (e) {
     e.preventDefault();
-
+    //Defining form elements
+    let visitorID = 'v' + Math.random().toString(36).substr(2, 6);
+    let name = $('#name').val();
+    let contact = $('#contact').val();
+    let nic = $('#nic').val();
+    let email = $('#email').val();
+    let vehicleNo = $('#vehicle-no').val();
     // Call validate function
     if(validate()){
-      writeQR();
-      downloadQR();
+      generateQR(visitorID, name, contact, nic, email, vehicleNo);
+      downloadQR(name);
     }
-
-    // Call download function
-    // save_as_svg();
   });
 }
