@@ -40,6 +40,8 @@ export default function () {
           });
         });
         loadTable(invites);
+        //Disable the buttons
+        $('.btn-generate').prop("disabled", false);
       };
       reader.readAsBinaryString(fileInput.files[0]);
     };
@@ -58,6 +60,7 @@ export default function () {
       );
       writeUserData(invite);
     }
+    $('.btn-save').prop("disabled", false);
   });
 
   $('.btn-save-all').click(function () {
@@ -96,7 +99,8 @@ export default function () {
           200
         );
         // Calling Firebase Write
-        writeUserData(invite);        
+        writeUserData(invite); 
+        $('.btn-save[data-index="'+elementID+'"]').prop("disabled", false);       
       });
 
       // Save button

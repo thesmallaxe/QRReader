@@ -62,6 +62,8 @@ image:split[4]});
 
 });
 loadTable(invites);
+//Disable the buttons
+$('.btn-generate').prop("disabled",false);
 };
 reader.readAsBinaryString(fileInput.files[0]);
 };
@@ -80,6 +82,7 @@ JSON.stringify(invite),
 
 writeUserData(invite);
 }
+$('.btn-save').prop("disabled",false);
 });
 
 $('.btn-save-all').click(function(){
@@ -119,6 +122,7 @@ JSON.stringify(invite),
 
 // Calling Firebase Write
 writeUserData(invite);
+$('.btn-save[data-index="'+elementID+'"]').prop("disabled",false);
 });
 
 // Save button
