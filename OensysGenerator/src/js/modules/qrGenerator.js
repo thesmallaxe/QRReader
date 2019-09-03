@@ -48,7 +48,7 @@ export default function () {
     // Write QR
     svgElement = codeWriter.writeToDom(
       '#result',
-      JSON.stringify(visitorID, name, contact, nic, email, vehicleNo),
+      JSON.stringify(visitorID),
       250,
       250
     );
@@ -109,7 +109,7 @@ export default function () {
     let vehicleNo = $('#vehicle-no').val();
     // Call validate function
     if(validate()){
-      generateQR(visitorID);
+      generateQR(visitorID, name, contact, nic, email, vehicleNo);
       downloadQR(name);
     }
   });
