@@ -3,153 +3,121 @@
  */
 
 export default function () {
-  //! Firebase Initialisation
-  var firebaseConfig = {
-    apiKey: "AIzaSyBSES8151aT4TvUkaaQUc8z6Jt_rKlHss8",
-    authDomain: "qr-reader-e5dbe.firebaseapp.com",
-    databaseURL: "https://qr-reader-e5dbe.firebaseio.com",
-    projectId: "qr-reader-e5dbe",
-    storageBucket: "qr-reader-e5dbe.appspot.com",
-    messagingSenderId: "501459211305",
-    appId: "1:501459211305:web:757b993c57fe8f2b"
+  let firebaseConfig = {
+    apiKey: "AIzaSyAX0g-faZYiULDy_QiLMBxaigNBB85VAPI",
+    authDomain: "reception-management.firebaseapp.com",
+    databaseURL: "https://reception-management.firebaseio.com",
+    projectId: "reception-management",
+    storageBucket: "reception-management.appspot.com",
+    messagingSenderId: "192413503859",
+    appId: "1:192413503859:web:c8f9e78f7000d4ea"
   };
 
+  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
-
-  //!Importing the file
-  var invites = [];
 
   const codeWriter = new ZXing.BrowserQRCodeSvgWriter();
   let svgElement;
 
-  let fileInput = document.getElementById("csv"),
-    readFile = function () {
-      let reader = new FileReader();
-      reader.onload = function () {
-        const table_details = reader.result;
-        const table_details_new = table_details.split("\r\n");
-        table_details_new.forEach(row => {
-          let split = row.split(",");
-          invites.push({
-            id: split[0],
-            name: split[1],
-            title: split[2],
-            company: split[3],
-            image: split[4]
-          });
-        });
+  // Form elements
+  let visitorID = 'v' + Math.random().toString(36).substr(2, 6);
+  let name = $('#name').val();
+  let contact = $('#contact').val();
+  let nic = $('#nic').val();
+  let email = $('#email').val();
+  let vehicleNo = $('#vehicle-no').val();
 
-        // Filling background colour of Canvas
-        function fillCanvasBackgroundWithColor(canvas, color) {
-          const context = canvas.getContext('2d');
+  // Sending data to Firebase Database
+  function writeUserData(visitorID, name, contact, nic, email, vehicleNo) {
+    firebase.database().ref("visitors/" + visitorID).set({
+      ID: visitorID,
+      Name: name,
+      Contact: contact,
+      NIC: nic,
+      Email: email,
+      Vehicle: vehicleNo,
+    });
+  }
 
-          context.save();
-          context.globalCompositeOperation = 'destination-over';
+  // Filling background colour of Canvas
+  function fillCanvasBackgroundWithColor(canvas, color) {
+    const context = canvas.getContext('2d');
 
-          context.fillStyle = color;
-          context.fillRect(0, 0, canvas.width, canvas.height);
-          context.restore();
-        }
+    context.save();
+    context.globalCompositeOperation = 'destination-over';
 
-        var i = 0;
+    context.fillStyle = color;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.restore();
+  }
 
-        for (i = 0; i < invites.length; i++) {
-          let row = $("#template-row")
-            .clone()
-            .appendTo("#table");
-          $(row).attr("style", "");
-          $(row)
-            .children(".table-row-id")
-            .html(invites[i].id);
-          $(row)
-            .children(".table-row-name")
-            .html(invites[i].name);
-          $(row)
-            .children(".table-row-title")
-            .html(invites[i].title);
-          $(row)
-            .children(".table-row-company")
-            .html(invites[i].company);
-          $(row)
-            .children(".table-row-image")
-            .html(invites[i].image);
-          $(row)
-            .children(".table-row-btn")
-            .children(".btn-generate")
-            .attr("data-index", i);
-          $(row)
-            .children(".table-row-qr")
-            .attr("id", "table-row-qr-" + i);
+  // Function write QR
+  function writeQR() {
+    // Calling Firebase Write
+    writeUserData(visitorID, name, contact, nic, email, vehicleNo);
 
-          $(row)
-            .children(".table-row-btn")
-            .children(".btn-generate")
-            .click(function () {
-              let i = $(this).attr("data-index");
-              let invite = invites[i];
-              let id = "#table-row-qr-" + i;
-              svgElement = codeWriter.writeToDom(
-                id,
-                JSON.stringify(invite),
-                200,
-                200
-              );
+    // Write QR
+    svgElement = codeWriter.writeToDom(
+      '#result',
+      JSON.stringify(visitorID, name, contact, nic, email, vehicleNo),
+      250,
+      250
+    );
+  }
 
-              // Sending data to Firebase Database
-              function writeUserData() {
-                firebase.database().ref("attendees/" + invites[i].id).set({
-                  ID: invites[i].id,
-                  Name: invites[i].name,
-                  Title: invites[i].title,
-                  Company: invites[i].company,
-                  Image: invites[i].image,
-                  Attended: "No"
-                });
-              }
+  // File download function
+  function save_as_svg() {
+    var svg_data = $("#result svg").html(); //put id of your svg element here
 
-              // Calling Firebase Write
-              writeUserData();
+    var head = '<svg title="graph" version="1.1" xmlns="http://www.w3.org/2000/svg">';
 
-              // File download function
-              function download(filename) {
-                // Defining the canvas
-                var canvas = document.getElementById("canvas");
-                fillCanvasBackgroundWithColor(canvas, '#fff');
-                var img = canvas.toDataURL("image/png");
+    //if you have some additional styling like graph edges put them inside <style> tag
+    // var style = '<style>circle {cursor: pointer;stroke-width: 1.5px;}text {font: 10px arial;}path {stroke: DimGrey;stroke-width: 1.5px;}</style>'
 
-                // Download function as an image
-                var element = document.createElement('a');
-                element.setAttribute('href', img);
-                element.setAttribute('download', filename);
+    var full_svg = head + svg_data + "</svg>";
+    var blob = new Blob([full_svg], { type: "image/svg+xml" });
+    saveAs(blob, "graph.svg");
+  };
 
-                element.style.display = 'none';
-                document.body.appendChild(element);
+  // Form validation
+  function validate() {
+    var isFormValid = true;
 
-                element.click();
+    $("input:required").each(function () {
+      if ($.trim($(this).val()).length == 0) {
+        $(this).addClass("highlight");
+        isFormValid = false;
+        $(this).focus();
+      }
+      else {
+        $(this).removeClass("highlight");
 
-                document.body.removeChild(element);
-              }
+        // Disable the button
+        $('#submitBtn').attr("disabled", true);
+      }
+    });
 
-              // Save button
-              $(row)
-                .children(".table-row-btn")
-                .children(".btn-save")
-                .click(function () {
-                  canvg(
-                    document.getElementById("canvas"),
-                    $("#table-row-qr-" + i).html()
-                  );
+    if (!isFormValid) {
+      alert("Please fill in all the required fields (indicated by *)");
+    } else {
+      // Call write QR function
+      writeQR();
+    }
 
-                  // DON'T DELETE THE COMMENTED CODE BELOW
-                  // document.write('<img src="' + img + '"/>');
-                  download(invites[i].name + ".png");
-                });
-            });
-        }
-      };
-      reader.readAsBinaryString(fileInput.files[0]);
-    };
+    return isFormValid;
+  }
 
-  fileInput.addEventListener("change", readFile);
+  // Defining form button element
+  let submitBtn = $('#submitBtn');
+
+  submitBtn.click(function (e) {
+    e.preventDefault();
+
+    // Call validate function
+    validate();
+
+    // Call download function
+    save_as_svg();
+  });
 }

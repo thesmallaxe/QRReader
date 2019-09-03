@@ -2,13 +2,13 @@ window.addEventListener("load", () => {
 
   //! Firebase Initialisation
   var firebaseConfig = {
-    apiKey: "AIzaSyBSES8151aT4TvUkaaQUc8z6Jt_rKlHss8",
-    authDomain: "qr-reader-e5dbe.firebaseapp.com",
-    databaseURL: "https://qr-reader-e5dbe.firebaseio.com",
-    projectId: "qr-reader-e5dbe",
-    storageBucket: "qr-reader-e5dbe.appspot.com",
-    messagingSenderId: "501459211305",
-    appId: "1:501459211305:web:757b993c57fe8f2b"
+    apiKey: "AIzaSyAX0g-faZYiULDy_QiLMBxaigNBB85VAPI",
+    authDomain: "reception-management.firebaseapp.com",
+    databaseURL: "https://reception-management.firebaseio.com",
+    projectId: "reception-management",
+    storageBucket: "reception-management.appspot.com",
+    messagingSenderId: "192413503859",
+    appId: "1:192413503859:web:c8f9e78f7000d4ea"
   };
 
   firebase.initializeApp(firebaseConfig);
@@ -49,8 +49,10 @@ window.addEventListener("load", () => {
             console.log(attendeeID);
 
             document.getElementById("name").textContent = content.name;
-            document.getElementById("title").textContent = content.title;
-            document.getElementById("company").textContent = content.company;
+            document.getElementById("contact").textContent = content.contact;
+            document.getElementById("nic").textContent = content.nic;
+            document.getElementById("email").textContent = content.email;
+            document.getElementById("vehicle-no").textContent = content.vehicle;
             // document.getElementsByClassName("user__img-image")[0].style.background = content.image;
 
             if (!content.image) {

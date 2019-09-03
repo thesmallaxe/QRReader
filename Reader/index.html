@@ -2,62 +2,64 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="apple-touch-fullscreen" content="YES">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <title>Citrus</title>
-    <meta content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" name="viewport">
-    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="apple-touch-fullscreen" content="YES">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <title>Citrus</title>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" name="viewport">
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 
 <body>
-    <header>
-        <img src="./assets/images/logo.png" alt="">
-    </header>
+  <header>
+    <img src="./assets/images/logo.png" alt="">
+  </header>
 
-    <main id="content-main">
-        <div class="user-wrapper">
-            <div class="container">
-                <div id="user-image-base" class="user__img">
-                    <div id="user-image" class="user__img-image"
-                        style="background:url(./assets/images/user.png) #fff center center no-repeat;"></div>
-                </div>
-                <div class="user__detail">
-                    <h1 id="name" class="user__detail-name">name</h1>
-                    <h2 id="title" class="user__detail-title">title</h2>
-                    <h2 id="company" class="user__detail-company">company</h2>
-                </div>
-            </div>
+  <main id="content-main">
+    <div class="user-wrapper">
+      <div class="container">
+        <div id="user-image-base" class="user__img">
+          <div id="user-image" class="user__img-image"
+            style="background:url(./assets/images/user.png) #fff center center no-repeat;"></div>
         </div>
-    </main>
-
-    <section class="reader" style="display: none;">
-        <div class="container">
-            <div class="QR-video">
-                <div class="left">
-                    <h4> QR Reader using ZXing </h4>
-                    <div class="button_container">
-                        <a id="b_start" class="button"> Start </a>
-                        <a id="b_stop" class="button"> Stop </a>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="video_container">
-                        <video id="video"></video>
-                    </div>
-
-                    <div id="sourceSelectPanel">
-                        <label for="sourceSelect"> Change Video Source: </label>
-                        <select id="sourceSelect"></select>
-                    </div>
-
-                    <label> Result: </label>
-                    <pre><code id="result"></code></pre>
-                </div>
-            </div>
+        <div class="user__detail">
+          <h1 id="name" class="user__detail-name">name</h1>
+          <h2 id="contact" class="user__detail-contact">contact</h2>
+          <h2 id="nic" class="user__detail-nic">nic</h2>
+          <h2 id="email" class="user__detail-email">company</h2>
+          <h2 id="vehicle-no" class="user__detail-vehicle">vehicle</h2>
         </div>
-    </section>
+      </div>
+    </div>
+  </main>
+
+  <section class="reader" style="display: none;">
+    <div class="container">
+      <div class="QR-video">
+        <div class="left">
+          <h4> QR Reader using ZXing </h4>
+          <div class="button_container">
+            <a id="b_start" class="button"> Start </a>
+            <a id="b_stop" class="button"> Stop </a>
+          </div>
+        </div>
+        <div class="right">
+          <div class="video_container">
+            <video id="video"></video>
+          </div>
+
+          <div id="sourceSelectPanel">
+            <label for="sourceSelect"> Change Video Source: </label>
+            <select id="sourceSelect"></select>
+          </div>
+
+          <label> Result: </label>
+          <pre><code id="result"></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
 </body>
 
 <script src="./src/js/lib/jquery.min.js"></script>

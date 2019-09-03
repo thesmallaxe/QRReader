@@ -16,13 +16,40 @@
     <div class="container">
       <div class="choose-file">
         <h3>Content to print in QR</h3>
-        <label class="custom-file">
-          <span class="custom-file-control"></span>
-          <input type="file" id="csv" class="custom-file-input">
-        </label>
+
+        <div class="data-form">
+          <form action="" id="visitor-form" class="data-form__form">
+            <div class="form-item">
+              <label for="name">Name*</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-item">
+              <label for="contact">Contact*</label>
+              <input type="text" id="contact" name="contact" required>
+            </div>
+            <div class="form-item">
+              <label for="nic">NIC*</label>
+              <input type="text" id="nic" name="nic" required>
+            </div>
+            <div class="form-item">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email">
+            </div>
+            <div class="form-item">
+              <label for="vehicle-no">Vehicle No:</label>
+              <input type="text" id="vehicle-no" name="vehicle-no">
+            </div>
+            <button type="submit" id="submitBtn">
+              Submit
+            </button>
+          </form>
+        </div>
+
+        <div id="result"></div>
       </div>
     </div>
-    <div class="container">
+
+    <!-- <div class="container">
       <div class="data-table">
         <table id="table">
           <tr id="template-row" style="display: none;">
@@ -37,7 +64,7 @@
           </tr>
         </table>
       </div>
-    </div>
+    </div> -->
 
     <div class="container">
       <div style="display: none;">
@@ -49,6 +76,7 @@
 </body>
 
 <script src="./src/js/lib/jquery.min.js"></script>
+<script src="./src/js/vendor/base64.js"></script>
 <script src="./src/js/lib/firebase-app.js"></script>
 <script src="./src/js/lib/firebase-database.js"></script>
 <script src="./src/js/lib/zxing.min.js"></script>
