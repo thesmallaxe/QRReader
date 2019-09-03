@@ -133,7 +133,7 @@ var email=$('#email').val();
 var vehicleNo=$('#vehicle-no').val();
 // Call validate function
 if(validate()){
-generateQR(visitorID,name,contact,nic,email,vehicleNo);
+generateQR(visitorID);
 downloadQR(name);
 }
 });
