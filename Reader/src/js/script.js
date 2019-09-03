@@ -65,23 +65,25 @@ window.addEventListener("load", () => {
             let content = JSON.parse(result.text)
             let attendeeID = content.id;
             console.log(attendeeID);
+            if (typeof attendeeID !== 'undefined'){
+              document.getElementById("name").textContent = content.name;
+              document.getElementById("title").textContent = content.title;
+              document.getElementById("company").textContent = content.company;
+              // document.getElementsByClassName("user__img-image")[0].style.background = content.image;
 
-            document.getElementById("name").textContent = content.name;
-            document.getElementById("title").textContent = content.title;
-            document.getElementById("company").textContent = content.company;
-            // document.getElementsByClassName("user__img-image")[0].style.background = content.image;
+              if (!content.image) {
+                document.getElementById("user-image-base").style.display = 'none';
+              } else {
+                document.getElementById("user-image-base").style.display = 'block';
+                document.getElementById("user-image").style.backgroundImage = 'url(' + content.image + ')';
+              }
 
-            if (!content.image) {
-              document.getElementById("user-image-base").style.display = 'none';
-            } else {
-              document.getElementById("user-image-base").style.display = 'block';
-              document.getElementById("user-image").style.backgroundImage = 'url(' + content.image + ')';
+              var updates = {};
+              updates["attendees/" + attendeeID + "/" + "Attended"] = "Yes"
+
+              return firebase.database().ref().update(updates);
             }
-
-            var updates = {};
-            updates["attendees/" + attendeeID + "/" + "Attended"] = "Yes"
-
-            return firebase.database().ref().update(updates);
+            
           }
 
           if (err && !(err instanceof ZXing.NotFoundException)) {
