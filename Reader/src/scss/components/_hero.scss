@@ -3,12 +3,12 @@
 ********************/
 
 header {
-  padding-top: 20px;
+  padding-top: 5px;
   text-align: center;
 }
 
 .user-wrapper {
-  height: calc(100vh - 120px);
+  height: calc(100vh - 104px);
   position: relative;
   width: 100%;
 
@@ -146,4 +146,23 @@ header {
 .user__detail-company {
   font-family: $montserrat;
   font-weight: $font-semibold;
+}
+
+.attendees__details {
+  @include margin(null null 5px);
+
+  font-weight: $font-bolder;
+  position: relative;
+}
+
+.video_container {
+  position: relative;
+
+  video {
+    height: 50px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+  }
 }

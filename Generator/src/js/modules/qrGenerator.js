@@ -3,41 +3,154 @@
  */
 
 export default function () {
-  let firebaseConfig = {
-    apiKey: "AIzaSyAX0g-faZYiULDy_QiLMBxaigNBB85VAPI",
-    authDomain: "reception-management.firebaseapp.com",
-    databaseURL: "https://reception-management.firebaseio.com",
-    projectId: "reception-management",
-    storageBucket: "reception-management.appspot.com",
-    messagingSenderId: "192413503859",
-    appId: "1:192413503859:web:c8f9e78f7000d4ea"
+  //! Firebase Initialisation
+  var firebaseConfig = {
+    apiKey: "AIzaSyBSES8151aT4TvUkaaQUc8z6Jt_rKlHss8",
+    authDomain: "qr-reader-e5dbe.firebaseapp.com",
+    databaseURL: "https://qr-reader-e5dbe.firebaseio.com",
+    projectId: "qr-reader-e5dbe",
+    storageBucket: "qr-reader-e5dbe.appspot.com",
+    messagingSenderId: "501459211305",
+    appId: "1:501459211305:web:757b993c57fe8f2b"
   };
 
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
+
+  //!Importing the file
+  var invites = [];
 
   const codeWriter = new ZXing.BrowserQRCodeSvgWriter();
   let svgElement;
 
-  // Form elements
-  let visitorID = 'v' + Math.random().toString(36).substr(2, 6);
-  let name = $('#name').val();
-  let contact = $('#contact').val();
-  let nic = $('#nic').val();
-  let email = $('#email').val();
-  let vehicleNo = $('#vehicle-no').val();
+  let fileInput = document.getElementById("csv"),
+    readFile = function () {
+      let reader = new FileReader();
+      reader.onload = function () {
+        const table_details = reader.result;
+        const table_details_new = table_details.split("\r\n");
+        table_details_new.forEach(row => {
+          let split = row.split(",");
+          invites.push({
+            id: split[0],
+            name: split[1],
+            title: split[2],
+            company: split[3],
+            image: split[4]
+          });
+        });
+        loadTable(invites);
+        //Disable the buttons
+        $('.btn-generate').prop("disabled", false);
+      };
+      reader.readAsBinaryString(fileInput.files[0]);
+    };
+  fileInput.addEventListener("change", readFile);
+
+  $('.btn-generate-all').click(function () {
+    var i = 0;
+    for (i = 0; i < invites.length; i++) {
+      let invite = invites[i];
+      let id = "#table-row-qr-" + i;
+      createQRcode(id, invite);
+      writeUserData(invite);
+    }
+    $('.btn-save').prop("disabled", false);
+  });
+
+  $('.btn-save-all').click(function () {
+    var zip = new JSZip();
+    var imagesfolder = zip.folder("codes");
+    var i = 0;
+    for (i = 0; i < invites.length; i++) {
+      canvg(document.getElementById("canvas"),$("#table-row-qr-" + i).html());
+      var canvas = document.getElementById("canvas");
+      fillCanvasBackgroundWithColor(canvas, '#fff');
+      var img = canvas.toDataURL("image/png");
+      var actualimgString = img.replace("data:image/png;base64," , '');
+      imagesfolder.file(invites[i].name + ".png", actualimgString, {base64: true});
+    }
+
+    zip.generateAsync({type:"blob"})
+    .then(function(content) {
+      saveAs(content, "QRcodes.zip");
+    });
+
+  });
+
+  function loadTable(invites){
+    var i = 0;
+    for (i = 0; i < invites.length; i++) {
+      let row = $("#template-row").clone().appendTo("#table");
+      $(row).attr("style", "");
+      $(row).children(".table-row-id").html(invites[i].id);
+      $(row).children(".table-row-name").html(invites[i].name);
+      $(row).children(".table-row-title").html(invites[i].title);
+      $(row).children(".table-row-company").html(invites[i].company);
+      $(row).children(".table-row-image").html(invites[i].image);
+      
+      $(row).children(".table-row-btn").children(".btn-generate").removeClass('btn-generate-all').html('Generate').attr("data-index", i);
+      $(row).children(".table-row-qr").attr("id", "table-row-qr-" + i);
+      $(row).children(".table-row-btn").children(".btn-save").removeClass('btn-save-all').html('Save').attr("data-index", i);
+
+      $(row).children(".table-row-btn").children(".btn-generate").click(function () {
+        let elementID = $(this).attr("data-index");
+        let invite = invites[elementID];
+        let id = "#table-row-qr-" + elementID;
+        createQRcode(id, invite);
+        // Calling Firebase Write
+        writeUserData(invite); 
+        $('.btn-save[data-index="'+elementID+'"]').prop("disabled", false);       
+      });
+
+      // Save button
+      $(row).children(".table-row-btn").children(".btn-save").click(function () {
+        let elementID = $(this).attr("data-index");
+        canvg(document.getElementById("canvas"),$("#table-row-qr-" + elementID).html());
+        // DON'T DELETE THE COMMENTED CODE BELOW
+        // document.write('<img src="' + img + '"/>');
+        download(invites[elementID].name + ".png");
+      });
+    }
+  }
+
+  function createQRcode(id, invite){
+    $(id).html('');
+    svgElement = codeWriter.writeToDom(
+      id,
+      JSON.stringify(invite),
+      200,
+      200
+    );
+  }
 
   // Sending data to Firebase Database
-  function writeUserData(visitorID, name, contact, nic, email, vehicleNo) {
-    firebase.database().ref("visitors/" + visitorID).set({
-      ID: visitorID,
-      Name: name,
-      Contact: contact,
-      NIC: nic,
-      Email: email,
-      Vehicle: vehicleNo,
+  function writeUserData(invite) {
+    console.log(invite);
+    firebase.database().ref("attendees/" + invite.id).set({
+      ID: invite.id,
+      Name: invite.name,
+      Title: invite.title,
+      Company: invite.company,
+      Image: invite.image,
+      Attended: "No"
     });
+  }
+
+  function download(filename) {
+    // Defining the canvas
+    var canvas = document.getElementById("canvas");
+    fillCanvasBackgroundWithColor(canvas, '#fff');
+    var img = canvas.toDataURL("image/png");
+
+    // Download function as an image
+    var element = document.createElement('a');
+    element.setAttribute('href', img);
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   }
 
   // Filling background colour of Canvas
@@ -51,73 +164,4 @@ export default function () {
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.restore();
   }
-
-  // Function write QR
-  function writeQR() {
-    // Calling Firebase Write
-    writeUserData(visitorID, name, contact, nic, email, vehicleNo);
-
-    // Write QR
-    svgElement = codeWriter.writeToDom(
-      '#result',
-      JSON.stringify(visitorID, name, contact, nic, email, vehicleNo),
-      250,
-      250
-    );
-  }
-
-  // File download function
-  function save_as_svg() {
-    var svg_data = $("#result svg").html(); //put id of your svg element here
-
-    var head = '<svg title="graph" version="1.1" xmlns="http://www.w3.org/2000/svg">';
-
-    //if you have some additional styling like graph edges put them inside <style> tag
-    // var style = '<style>circle {cursor: pointer;stroke-width: 1.5px;}text {font: 10px arial;}path {stroke: DimGrey;stroke-width: 1.5px;}</style>'
-
-    var full_svg = head + svg_data + "</svg>";
-    var blob = new Blob([full_svg], { type: "image/svg+xml" });
-    saveAs(blob, "graph.svg");
-  };
-
-  // Form validation
-  function validate() {
-    var isFormValid = true;
-
-    $("input:required").each(function () {
-      if ($.trim($(this).val()).length == 0) {
-        $(this).addClass("highlight");
-        isFormValid = false;
-        $(this).focus();
-      }
-      else {
-        $(this).removeClass("highlight");
-
-        // Disable the button
-        $('#submitBtn').attr("disabled", true);
-      }
-    });
-
-    if (!isFormValid) {
-      alert("Please fill in all the required fields (indicated by *)");
-    } else {
-      // Call write QR function
-      writeQR();
-    }
-
-    return isFormValid;
-  }
-
-  // Defining form button element
-  let submitBtn = $('#submitBtn');
-
-  submitBtn.click(function (e) {
-    e.preventDefault();
-
-    // Call validate function
-    validate();
-
-    // Call download function
-    save_as_svg();
-  });
 }
