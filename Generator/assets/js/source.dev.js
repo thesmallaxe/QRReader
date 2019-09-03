@@ -74,25 +74,30 @@ var i=0;
 for(i=0;i<invites.length;i++){
 var invite=invites[i];
 var id="#table-row-qr-"+i;
-svgElement=codeWriter.writeToDom(
-id,
-JSON.stringify(invite),
-200,
-200);
-
+createQRcode(id,invite);
 writeUserData(invite);
 }
 $('.btn-save').prop("disabled",false);
 });
 
 $('.btn-save-all').click(function(){
+var zip=new JSZip();
+var imagesfolder=zip.folder("codes");
 var i=0;
 for(i=0;i<invites.length;i++){
 canvg(document.getElementById("canvas"),$("#table-row-qr-"+i).html());
-// DON'T DELETE THE COMMENTED CODE BELOW
-// document.write('<img src="' + img + '"/>');
-download(invites[i].name+".png");
+var canvas=document.getElementById("canvas");
+fillCanvasBackgroundWithColor(canvas,'#fff');
+var img=canvas.toDataURL("image/png");
+var actualimgString=img.replace("data:image/png;base64,",'');
+imagesfolder.file(invites[i].name+".png",actualimgString,{base64:true});
 }
+
+zip.generateAsync({type:"blob"}).
+then(function(content){
+saveAs(content,"QRcodes.zip");
+});
+
 });
 
 function loadTable(invites){
@@ -114,12 +119,7 @@ $(row).children(".table-row-btn").children(".btn-generate").click(function(){
 var elementID=$(this).attr("data-index");
 var invite=invites[elementID];
 var id="#table-row-qr-"+elementID;
-svgElement=codeWriter.writeToDom(
-id,
-JSON.stringify(invite),
-200,
-200);
-
+createQRcode(id,invite);
 // Calling Firebase Write
 writeUserData(invite);
 $('.btn-save[data-index="'+elementID+'"]').prop("disabled",false);
@@ -134,6 +134,16 @@ canvg(document.getElementById("canvas"),$("#table-row-qr-"+elementID).html());
 download(invites[elementID].name+".png");
 });
 }
+}
+
+function createQRcode(id,invite){
+$(id).html('');
+svgElement=codeWriter.writeToDom(
+id,
+JSON.stringify(invite),
+200,
+200);
+
 }
 
 // Sending data to Firebase Database
