@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>QR Gen</title>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" name="viewport">
+
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="qr-photo">
+  <header class="header-scan">
+    <h1>Take a Photo</h1>
+  </header>
+
+  <div class="container">
+    <div class="cam-wrapper">
+      <video id="video" autoplay=""></video>
+      <canvas id="canvas" width="640" height="480"></canvas>
+      <div class="btn-wrapper">
+        <button id="snap" class="btn-submit btn--small">Take Photo</button>
+        <div id="proceed" class="btn-submit btn--small">Proceed</div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="./src/js/vendor/jquery.min.js"></script>
+<script src="./src/js/vendor/firebase-app.js"></script>
+<script src="./src/js/vendor/firebase-database.js"></script>
+<script src="./src/js/vendor/firebase-storage.js"></script>
+<script src="./src/js/vendor/zxing.min.js"></script>
+<script src="./assets/js/source.dev.js"></script>
+
+</html>

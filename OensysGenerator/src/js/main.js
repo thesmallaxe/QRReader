@@ -2,8 +2,8 @@
 'use strict';
 
 import jquery from 'jquery';
-// import formValidator from 'modules/formValidator.js';
 import qrGenerator from 'modules/qrGenerator.js';
+import animation from 'modules/animation.js';
 
 (function ($) {
   $(document).ready(function () {
@@ -12,7 +12,7 @@ import qrGenerator from 'modules/qrGenerator.js';
 
   // Initalizing all modules
   function ready() {
-    // formValidator();
     qrGenerator();
+    animation();
   }
 })(jquery);

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="apple-touch-fullscreen" content="YES">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <title>Citrus</title>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" name="viewport">
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="qr-reader">
+  <header class="header-scan">
+    <h1>Scan QR Code</h1>
+  </header>
+
+  <header class="header-visitor">
+    <h1>Visitor Information</h1>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="qr-video-reader">
+        <div class="qr-video__container">
+          <div class="reader-overlay"></div>
+          <video id="video"></video>
+        </div>
+
+        <div id="sourceSelectPanel">
+          <label for="sourceSelect" style="display: none;">Change Video Source: </label>
+          <select id="sourceSelect" style="display: none;"></select>
+        </div>
+      </div>
+
+      <div class="data-form">
+        <form action="" method="POST" id="visitor-form" class="data-form__form">
+          <div class="form-item validate-input" data-validate="Enter name">
+            <input type="text" id="name" name="name" class="has-val" disabled>
+            <span class="focus-input" data-placeholder="Name"></span>
+          </div>
+          <div class="form-item validate-input" data-validate="Enter contact no">
+            <input type="text" id="contact" name="contact" class="has-val" disabled>
+            <span class="focus-input" data-placeholder="Contact"></span>
+          </div>
+          <div class="form-item validate-input" data-validate="Enter contact no">
+            <input type="text" id="nic" name="nic" class="has-val" disabled>
+            <span class="focus-input" data-placeholder="NIC"></span>
+          </div>
+          <div class="form-item" data-validate="Enter contact no">
+            <input type="email" id="email" name="email" class="has-val" disabled>
+            <span class="focus-input" data-placeholder="Email"></span>
+          </div>
+          <div class="form-item">
+            <input type="text" id="vehicle-no" name="vehicle-no" class="has-val" disabled>
+            <span class="focus-input" data-placeholder="Vehicle No"></span>
+          </div>
+          <div class="form-action">
+            <a href="photo.html" class="btn-submit">
+              Proceed
+            </a>
+          </div>
+        </form>
+      </div>
+
+      <div class="attendees__details" style="display: none">
+        <table>
+          <tr>
+            <td>
+              <div class="attendees__details-attending">
+                Visitors :
+              </div>
+            </td>
+            <td>&nbsp;<span id="attendees-attending"></span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="attendees__details-attended">
+                Visited :
+              </div>
+            </td>
+            <td>&nbsp;<span id="attendees-attended"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="user__detail" style="display: none;">
+        <h1 id="name" class="user__detail-name">Name</h1>
+        <h2 id="contact" class="user__detail-contact">Contact</h2>
+        <h2 id="nic" class="user__detail-nic">NIC</h2>
+        <h2 id="email" class="user__detail-email">Email</h2>
+        <h2 id="vehicle-no" class="user__detail-vehicle">Vehicle No</h2>
+      </div>
+      <div id="result" style="display: none"></div>
+    </div>
+  </main>
+</body>
+
+<script src="./src/js/vendor/jquery.min.js"></script>
+<script src="./src/js/vendor/firebase-app.js"></script>
+<script src="./src/js/vendor/firebase-database.js"></script>
+<script src="./src/js/vendor/zxing.min.js"></script>
+<script src="./src/js/script.js"></script>
+
+</html>

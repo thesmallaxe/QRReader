@@ -16,6 +16,7 @@ export default function () {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
+
   const codeWriter = new ZXing.BrowserQRCodeSvgWriter();
   let svgElement;
 
@@ -28,6 +29,7 @@ export default function () {
       NIC: nic,
       Email: email,
       Vehicle: vehicleNo,
+      Visited: "No"
     });
   }
 
@@ -48,39 +50,79 @@ export default function () {
     // Write QR
     svgElement = codeWriter.writeToDom(
       '#result',
-      JSON.stringify(visitorID),
+      visitorID,
       250,
       250
     );
   }
 
-  // Form validation
-  function validate() {
-    var isFormValid = true;
-
-    $("input:required").each(function () {
-      if ($.trim($(this).val()).length == 0) {
-        $(this).addClass("highlight");
-        isFormValid = false;
-        $(this).focus();
+  /* Form validation */
+  // Focus Input
+  $('.data-form__form input').each(function () {
+    $(this).on('blur', function () {
+      if ($(this).val().trim() != "") {
+        $(this).addClass('has-val');
       }
       else {
-        $(this).removeClass("highlight");
-
-        // Disable the button
-        $('#submitBtn').attr("disabled", true);
+        $(this).removeClass('has-val');
       }
     });
+  });
 
-    if (!isFormValid) {
-      alert("Please fill in all the required fields (indicated by *)");
-    } 
-    return isFormValid;
+  // Validate
+  var input = $('.validate-input input');
+
+  $('.data-form__form').submit(function (e) {
+    e.preventDefault();
+
+    var check = true;
+
+    for (var i = 0; i < input.length; i++) {
+      if (validate(input[i]) == false) {
+        showValidate(input[i]);
+        check = false;
+      }
+    }
+
+    return check;
+  });
+
+
+  $('.data-form__form input').each(function () {
+    $(this).focus(function () {
+      hideValidate(this);
+    });
+  });
+
+  function validate(input) {
+    if ($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+      if ($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+        return false;
+      }
+    }
+    else {
+      if ($(input).val().trim() == '') {
+        return false;
+      }
+    }
   }
 
-  function downloadQR(filename){
-    canvg(document.getElementById("canvas"),$("#result").html());
-    
+  function showValidate(input) {
+    var thisAlert = $(input).parent();
+
+    $(thisAlert).addClass('alert-validate');
+  }
+
+  function hideValidate(input) {
+    var thisAlert = $(input).parent();
+
+    $(thisAlert).removeClass('alert-validate');
+  }
+
+  // Download QR function
+  function downloadQR(filename) {
+    canvg(document.getElementById("canvas"), $("#result").html());
+
     var canvas = document.getElementById("canvas");
     fillCanvasBackgroundWithColor(canvas, '#fff');
     var img = canvas.toDataURL("image/png");
@@ -98,8 +140,12 @@ export default function () {
   // Defining form button element
   let submitBtn = $('#submitBtn');
 
-  submitBtn.click(function (e) {
+  // Validate
+  var input = $('.validate-input input');
+
+  $('.data-form__form').submit(function (e) {
     e.preventDefault();
+
     //Defining form elements
     let visitorID = 'v' + Math.random().toString(36).substr(2, 6);
     let name = $('#name').val();
@@ -107,10 +153,21 @@ export default function () {
     let nic = $('#nic').val();
     let email = $('#email').val();
     let vehicleNo = $('#vehicle-no').val();
-    // Call validate function
-    if(validate()){
+
+    var check = true;
+
+    for (var i = 0; i < input.length; i++) {
+      if (validate(input[i]) == false) {
+        showValidate(input[i]);
+        check = false;
+      }
+    }
+
+    if (check) {
       generateQR(visitorID, name, contact, nic, email, vehicleNo);
       downloadQR(name);
     }
+
+    return check;
   });
 }

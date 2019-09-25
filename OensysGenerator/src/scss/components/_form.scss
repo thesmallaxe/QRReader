@@ -1,0 +1,151 @@
+/********************
+        FORM
+********************/
+
+.data-form {
+  @include margin(null auto);
+
+  max-width: 630px;
+}
+
+// Input
+.form-item {
+  border-bottom: 2px solid #d9d9d9;
+  margin-bottom: 40px;
+  position: relative;
+  width: 100%;
+
+  input {
+    background: transparent;
+    border: none;
+    color: #555;
+    display: block;
+    // font-family: Poppins-SemiBold;
+    font-size: 18px;
+    height: 52px;
+    line-height: 1.2;
+    padding: 0 5px;
+    width: 100%;
+
+    &.has-val + .focus-input {
+      &:after {
+        font-size: 15px;
+        top: -20px;
+      }
+
+      &:before {
+        width: 100%;
+      }
+    }
+
+    &:focus + .focus-input {
+      &:before {
+        width: 100%;
+      }
+
+      &:after {
+        font-size: 15px;
+        top: -20px;
+      }
+    }
+  }
+}
+
+.form-action {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+// Focus Input
+.focus-input {
+  display: block;
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  &:before {
+    background: $orange;
+    bottom: -2px;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    -webkit-transition: all .4s;
+    -o-transition: all .4s;
+    -moz-transition: all .4s;
+    transition: all .4s;
+    width: 0;
+  }
+
+  &:after {
+    color: #999;
+    content: attr(data-placeholder);
+    display: block;
+    font-size: 18px;
+    left: 0;
+    line-height: 1.2;
+    padding-left: 5px;
+    position: absolute;
+    top: 15px;
+    transition: all .4s;
+    width: 100%;
+  }
+}
+
+// Alert validate
+.validate-input {
+  position: relative;
+}
+
+.alert-validate {
+  &:before {
+    background-color: $white;
+    border: 1px solid $red;
+    border-radius: 2px;
+    color: $red;
+    content: attr(data-validate);
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: 70%;
+    opacity: 0;
+    padding: 4px 25px 4px 10px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: left;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity .4s;
+    visibility: hidden;
+
+    @include grid-media($md-max) {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &:after {
+    background-color: $white;
+    color: $red;
+    content: "\f06a";
+    display: block;
+    font-family: $fontAwesome;
+    font-size: 16px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &:hover {
+    &:before {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
