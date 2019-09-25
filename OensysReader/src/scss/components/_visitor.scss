@@ -1,0 +1,15 @@
+/********************
+      VISITOR
+********************/
+.visitor_info {
+  .visitor {
+    &__wrapper {
+      text-align: center;
+    }
+
+    &__image {
+      margin-bottom: 30px;
+      width: 300px;
+    }
+  }
+}

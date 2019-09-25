@@ -1,6 +1,6 @@
 window.addEventListener("load", () => {
 
-  //! Firebase Initialisation
+  //! Firebase Initialization
   var firebaseConfig = {
     apiKey: "AIzaSyAX0g-faZYiULDy_QiLMBxaigNBB85VAPI",
     authDomain: "reception-management.firebaseapp.com",
@@ -80,26 +80,11 @@ window.addEventListener("load", () => {
                 //console.log(snapshot.val());
                 let visitorData = snapshot.val();
 
-                // document.getElementById("name").textContent = visitorData.Name;
-                // document.getElementById("contact").textContent = visitorData.Contact;
-                // document.getElementById("nic").textContent = visitorData.NIC;
-                // document.getElementById("email").textContent = visitorData.Email;
-                // document.getElementById("vehicle-no").textContent = visitorData.Vehicle;
-
                 $("#name").val(visitorData.Name);
                 $("#contact").val(visitorData.Contact);
                 $("#nic").val(visitorData.NIC);
                 $("#email").val(visitorData.Email);
                 $("#vehicle-no").val(visitorData.Vehicle);
-
-                // document.getElementsByClassName("user__img-image")[0].style.background = content.image;
-
-                // if (!visitorData.image) {
-                //   document.getElementById("user-image-base").style.display = 'none';
-                // } else {
-                //   document.getElementById("user-image-base").style.display = 'block';
-                //   document.getElementById("user-image").style.backgroundImage = 'url(' + visitorData.image + ')';
-                // }
 
                 var updates = {};
                 updates["visitors/" + visitorID + "/" + "Visited"] = "Yes"
@@ -107,10 +92,7 @@ window.addEventListener("load", () => {
                 return firebase.database().ref().update(updates);
 
               });
-
-
             }
-
           }
 
           if (err && !(err instanceof ZXing.NotFoundException)) {

@@ -1,0 +1,57 @@
+/********************
+      PRINT
+********************/
+.visitor_print {
+  .id-card {
+    @include margin(0 auto);
+
+    background-color: #fff;
+    // border-radius: 10px;
+    // box-shadow: 0 0 1.5px 0 #b9b9b9;
+    max-width: 500px;
+    padding: 10px;
+    text-align: center;
+
+    .info-table {
+      @include margin(0 auto);
+    }
+
+    .info {
+      font-size: 14px;
+      text-align: left;
+      // text-transform: uppercase;
+    }
+
+    .title {
+      font-size: 14px;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .logo {
+      width: 150px;
+    }
+
+    .image-qr {
+      display: inline-flex;
+      flex-direction: row;
+
+      .photo {
+        border-right: 1px solid #969696;
+        margin-right: 16px;
+        padding-right: 16px;
+        padding-top: 7px;
+        text-align: center;
+
+        img {
+          // @include margin(0 auto);
+
+          // // border: 5px solid #f26424;
+          // width: 100px;
+          //margin-top: 17px;
+          width: 150px;
+        }
+      }
+    }
+  }
+}

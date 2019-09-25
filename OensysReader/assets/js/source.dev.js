@@ -340,6 +340,8 @@ if(error){
 console.log('Not done');
 }else{
 console.log('done');
+var current_url=window.location.href;
+window.location.href=current_url.replace("photo","visitor");
 }
 });
 });

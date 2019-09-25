@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>QR Gen</title>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" name="viewport">
+
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="visitor_print">
+  <div class="id-card">
+    <div class="header">
+      <img class="logo" src="./assets/images/oensys-logo-black.svg">
+    </div>
+
+    <div class="image-qr">
+      <div class="photo">
+        <img id="visitorImage">
+      </div>
+<!-- 
+      <div class="qr-code" style="display: none">
+        <div id="result" class="qr-code"></div>
+      </div> -->
+
+
+      <div class="info-wrapper">
+        <table class="info-table">
+          <tr>
+            <td class="title">Name </td>
+            <td>
+              <div id="name" class="info"></div>
+            </td>
+          </tr>
+  
+  
+          <tr>
+            <td class="title">Contact </td>
+            <td>
+              <div id="contact" class="info"></div>
+            </td>
+          </tr>
+  
+  
+  
+          <tr>
+            <td class="title">Nic </td>
+            <td>
+              <div id="nic" class="info"></div>
+            </td>
+          </tr>
+  
+  
+  
+  
+          <tr>
+            <td class="title">Email </td>
+            <td>
+              <div id="email" class="info"></div>
+            </td>
+          </tr>
+  
+  
+          <tr>
+            <td class="title">Vehicle No </td>
+            <td>
+              <div id="vehicle-no" class="info"></div>
+            </td>
+          </tr>
+  
+        </table>
+  
+      </div>
+    </div>
+
+
+
+    <!-- <hr> -->
+
+
+  </div>
+  <script src="./src/js/vendor/jquery.min.js"></script>
+  <script src="./src/js/vendor/firebase-app.js"></script>
+  <script src="./src/js/vendor/firebase-database.js"></script>
+  <script src="./src/js/vendor/firebase-storage.js"></script>
+  <script src="./src/js/vendor/zxing.min.js"></script>
+  <script src="./src/js/print.js"></script>
+
+</body>
+
+</html>
