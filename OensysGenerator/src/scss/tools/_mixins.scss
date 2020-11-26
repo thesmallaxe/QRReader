@@ -1,0 +1,50 @@
+/*****************
+      MIXINS
+******************/
+
+/* Mixin for the Wrapper
+of grid column.
+
+This mixin should be used inside the
+wrapper class of the columns
+*/
+@mixin flex-gridWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Mixin for grid column
+
+This mixin should be used inside the
+column element class
+*/
+@mixin flex-gridCol($gutter, $width) {
+  flex: 0 0 calc(#{$width} - #{$gutter});
+  max-width: calc(#{$width} - #{$gutter});
+}
+
+/* Mixin for CSS columns */
+
+/* This can be used to get a masonry
+kind of grid layout. When using this
+method you have to use "break-after"
+css attribute from which element you
+want to break. */
+
+@mixin css-col-grid($column-count, $column-gap) {
+  column-gap: #{$column-gap};
+  columns: #{$column-count};
+}
+
+/* Mixin for Font size and line height */
+@mixin font($size,$height) {
+  font-size: $size+px;
+  line-height: $height+px;
+}
+
+/* Mixin for Transition */
+@mixin trans($props) {
+  -ms-transition: $props;
+  -webkit-transition: $props;
+  transition: $props;
+}

@@ -1,0 +1,40 @@
+/*!
+Theme Name: Static Theme
+Theme URI:
+Description: Static Theme
+Author: Anees (DXDY)
+Author URI: https://dxdy.tech/
+*/
+
+// Neat Bourbon
+@import "../../node_modules/bourbon/core/bourbon";
+@import "../../node_modules/bourbon-neat/core/neat";
+
+// Settings
+// Used with preprocessors and contain font, colors definitions, etc.
+// =====================
+@import "settings/variables";
+@import "settings/fonts";
+
+// Generic
+// Reset and/or normalize styles, box-sizing definition, etc. This is the first layer which generates actual CSS.
+@import "generic/reset";
+@import "generic/utilities";
+@import "generic/pages";
+
+// Tools
+// Globally used mixins and functions
+@import "tools/mixins";
+@import "tools/typography";
+@import "tools/layout";
+@import "tools/transitions";
+
+// Components
+// Specific UI components
+@import "components/buttons";
+@import "components/form";
+@import "components/landing";
+@import "components/photo";
+@import "components/reader";
+@import "components/visitor";
+@import "components/print";

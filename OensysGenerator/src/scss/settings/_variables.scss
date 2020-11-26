@@ -1,0 +1,107 @@
+/*************************
+          COLORS
+**************************/
+$black: #000;
+$red: #c80000;
+$white: #fff;
+$orange: #f36424;
+$tan: #fffefb;
+
+/*************************
+        TRANSITIONS
+**************************/
+$cubic-transition: cubic-bezier(.51, .92, .24, 1.15);
+$cubic-transition-2: cubic-bezier(0, 0, .2, 1);
+
+/*************************
+        BREAKPOINTS
+**************************/
+// Lower boundaries
+$screen-xs-min: 576px !default;
+$screen-sm-min: 768px !default;
+$screen-md-min: 992px !default;
+$screen-lg-min: 1200px !default;
+
+// Upper boundaries
+$screen-xs-max: $screen-sm-min - 1px !default;
+$screen-sm-max: $screen-md-min - 1px !default;
+$screen-md-max: $screen-lg-min - 1px !default;
+
+/*************************
+        GRID SETUP
+**************************/
+
+/******** Mobile *********/
+// from 576px and above
+$xs: (
+  columns: 4,
+  media: $screen-xs-min
+);
+
+// from 576px to 767px
+$xs-only: (
+  columns: 4,
+  media: 'only screen and (min-width: #{$screen-xs-min}) and (max-width: #{$screen-xs-max})'
+);
+
+// from 0 to 575px only
+$xs-max: (
+  columns: 4,
+  media: 'only screen and (max-width: #{$screen-xs-max})'
+);
+
+/******** Tablet *********/
+// from 768px and above
+$sm: (
+  columns: 8,
+  media: $screen-sm-min
+);
+
+// from 768px to 991px
+$sm-only: (
+  columns: 8,
+  media: 'only screen and (min-width: #{$screen-sm-min}) and (max-width: #{$screen-sm-max})',
+);
+
+// from 0 to 767px only
+$sm-max: (
+  columns: 8,
+  media: 'only screen and (max-width: #{$screen-sm-max})',
+);
+
+/******** Desktop *********/
+// from 992px and above
+$md: (
+  columns: 12,
+  media: $screen-md-min
+);
+
+// from 992px to 1199px
+$md-only: (
+  columns: 12,
+  media: 'only screen and (min-width: #{$screen-md-min}) and (max-width: #{$screen-md-max})'
+);
+
+// from 0 to 1199px only
+$md-max: (
+  columns: 12,
+  media: 'only screen and (max-width: #{$screen-md-max})'
+);
+
+/******** Desktop Large *********/
+// from 1200px and above
+$lg: (
+  columns: 12,
+  media: $screen-lg-min
+);
+
+/***** Common Grid Gutter ******/
+$neat-grid: (gutter: 15px);
+
+// Grid without gutter
+$no-gutter: (gutter: 0);
+
+/***************************
+      CONTAINER SIZES
+****************************/
+$container: 1200px;

@@ -1,0 +1,62 @@
+// LAYOUT
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+body {
+  background-color: $tan;
+  color: $black;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+canvas {
+  height: 100%;
+  width: 100%;
+}
+
+a,
+button,
+input {
+  outline: none;
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+}
+
+.row {
+  @include grid-collapse;
+}
+
+.container {
+  @include grid-container;
+  @include padding(null 15px);
+
+  margin: 0 auto;
+  max-width: $container;
+  position: relative;
+}
+
+section {
+  @include margin(null null 80px);
+  @include grid-container;
+
+  position: relative;
+  width: 100%;
+
+  @include grid-media($sm) {
+    @include margin(null null 50px);
+  }
+
+  @include grid-media($md) {
+    @include margin(null null 70px);
+  }
+}

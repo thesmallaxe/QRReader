@@ -1,0 +1,35 @@
+/********************
+      ACCORDION
+********************/
+
+.accordion {
+  list-style: none;
+  padding: 0;
+
+  .toggle {
+    .icon {
+      &:before {
+        transform: rotate(0);
+        transition: all .4s $cubic-transition;
+      }
+    }
+
+    &.active {
+      .icon {
+        &:before {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .accordion__content {
+    display: none;
+    overflow: hidden;
+
+    &,
+    p {
+      color: $white;
+    }
+  }
+}

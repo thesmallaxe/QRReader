@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Oensys Generator - Create QR Code</title>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" name="viewport">
+
+  <link rel="stylesheet" type="text/css" href="src/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="qr-generator">
+  <header>
+    <h1>Visitor Information</h1>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="data-form">
+        <div id="result"></div>
+
+        <form action="" method="POST" id="visitor-form" class="data-form__form">
+          <div class="form-item validate-input" data-validate="Enter name">
+            <input type="text" id="name" name="name">
+            <span class="focus-input" data-placeholder="Name"></span>
+          </div>
+          <div class="form-item validate-input" data-validate="Enter contact no">
+            <input type="text" id="contact" name="contact">
+            <span class="focus-input" data-placeholder="Contact"></span>
+          </div>
+          <div class="form-item validate-input" data-validate="Enter contact no">
+            <input type="text" id="nic" name="nic">
+            <span class="focus-input" data-placeholder="NIC"></span>
+          </div>
+          <div class="form-item" data-validate="Enter contact no">
+            <input type="email" id="email" name="email">
+            <span class="focus-input" data-placeholder="Email"></span>
+          </div>
+          <div class="form-item">
+            <input type="text" id="vehicle-no" name="vehicle-no">
+            <span class="focus-input" data-placeholder="Vehicle No"></span>
+          </div>
+          <div class="form-action">
+            <button type="submit" id="submitBtn" class="btn-submit">
+              Create QR Code
+            </button>
+
+            <a href="." class="btn-cancel">
+              Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+
+      <div style="display: none;">
+        <canvas width="200px" height="200px" id="canvas" style="background: #fff;"></canvas>
+      </div>
+    </div>
+  </main>
+</body>
+
+<script src="./src/js/vendor/jquery.min.js"></script>
+<script src="./src/js/vendor/firebase-app.js"></script>
+<script src="./src/js/vendor/firebase-database.js"></script>
+<script src="./src/js/vendor/zxing.min.js"></script>
+<script src="./src/js/vendor/FileSaver.min.js"></script>
+<script src="./src/js/vendor/html2canvas.js"></script>
+<script src="./src/js/vendor/canvg.min.js"></script>
+<script src="./assets/js/source.dev.js"></script>
+
+</html>

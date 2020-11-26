@@ -1,0 +1,31 @@
+/********************
+      GENERATOR
+********************/
+
+.qr-generator {
+  header {
+    @include padding(20px null);
+  }
+
+  .container {
+    @include padding(40px null);
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .form-item {
+    @include grid-media($sm) {
+      @include grid-column(8 of 8, $no-gutter);
+    }
+
+    @include grid-media($md) {
+      @include grid-column(12 of 12, $no-gutter);
+    }
+  }
+}
+
+#result {
+  text-align: center;
+}
